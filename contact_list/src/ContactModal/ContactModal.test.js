@@ -11,9 +11,9 @@ test('renders contact modal text', async () => {
 
 test('initializes empty form', () => {
     render(<ContactModal />);
-   const nameInput =  screen.queryAllByPlaceholderText('Name')
-   const phoneInput =  screen.queryAllByPlaceholderText('Phone Number')
-   const emailInput = screen.queryAllByPlaceholderText('EmailAddress')
+   const nameInput =  screen.queryByPlaceholderText('Name')
+   const phoneInput =  screen.queryByPlaceholderText('Phone Number')
+   const emailInput = screen.queryByPlaceholderText('Email Address')
 
    expect(nameInput).toBeInTheDocument();
    expect(phoneInput).toBeInTheDocument();
