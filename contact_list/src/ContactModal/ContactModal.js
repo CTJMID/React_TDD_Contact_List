@@ -8,9 +8,15 @@
     const [phone, setPhone] = useState('');
     const [email, setEmail] = useState('');
 
-    // useEffect(() => {
-
-    // }, [])
+    useEffect(() => {
+        setIsValid(
+            !!name && 
+            !!phone && 
+            !!email && 
+            /^[0-9]{5}-[0-9]{6}$/.test(phone) &&
+            /^\w+([.-]?\w+)*@\w+([.-]?w+)*(\.\w{2,3})+$/.test(email)
+        )
+    }, [name, phone, email])
     
     return (
      <> 

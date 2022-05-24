@@ -36,7 +36,7 @@ test('Disables submit button until form is valid', () => {
    const submitButton = screen.getByText('Submit')
 
    fireEvent.change(nameInput, {target: {value: 'Chris'}})
-   fireEvent.change(phoneInput, {target: {value: '01000 000000'}})
+   fireEvent.change(phoneInput, {target: {value: '01000-000000'}})
    fireEvent.change(emailInput, {target: {value: 'test@test.com'}})
 
     expect(nameInput).toHaveValue('Chris')
