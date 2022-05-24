@@ -41,5 +41,5 @@ test('Disables submit button until form is valid', () => {
 
     expect(nameInput).toHaveValue('Chris')
 
-    // expect(submitButton).not.toBeDisabled();
+    expect(submitButton).not.toBeDisabled();
 })
