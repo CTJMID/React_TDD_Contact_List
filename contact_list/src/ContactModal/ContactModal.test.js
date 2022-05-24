@@ -28,7 +28,7 @@ test('initializes empty form', () => {
 
   });
 
-test('Disables submit button until form is valid', () => {
+test('Disables submit button until form is filled', () => {
     render(<ContactModal />);
    const nameInput =  screen.queryByPlaceholderText('Name')
    const phoneInput =  screen.queryByPlaceholderText('Phone Number')
@@ -40,6 +40,32 @@ test('Disables submit button until form is valid', () => {
    fireEvent.change(emailInput, {target: {value: 'test@test.com'}})
 
     expect(nameInput).toHaveValue('Chris')
+
+    expect(submitButton).not.toBeDisabled();
+})
+
+test('Disables submit button when form is filled invalid', () => {
+    render(<ContactModal />);
+   const nameInput =  screen.queryByPlaceholderText('Name')
+   const phoneInput =  screen.queryByPlaceholderText('Phone Number')
+   const emailInput = screen.queryByPlaceholderText('Email Address')
+   const submitButton = screen.getByText('Submit')
+
+   fireEvent.change(nameInput, {target: {value: 'Chris'}})
+   fireEvent.change(phoneInput, {target: {value: '01000-000000'}})
+   fireEvent.change(emailInput, {target: {value: 'test@test'}})
+
+    expect(submitButton).toBeDisabled();
+
+    fireEvent.change(emailInput, {target: {value: 'test@test.com'}})
+
+    expect(submitButton).not.toBeDisabled();
+
+    fireEvent.change(phoneInput, {target: {value: '0-000000'}})
+
+    expect(submitButton).toBeDisabled();
+
+    fireEvent.change(phoneInput, {target: {value: '01000-000000'}})
 
     expect(submitButton).not.toBeDisabled();
 })
