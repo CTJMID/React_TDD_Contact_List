@@ -14,13 +14,31 @@
     const [emailError, setEmailError] = useState('');
 
     useEffect(() => {
-        setIsValid(
-            !!name && 
-            !!phone && 
-            !!email && 
-            /^[0-9]{5}-[0-9]{6}$/.test(phone) &&
-            /^\w+([.-]?\w+)*@\w+([.-]?w+)*(\.\w{2,3})+$/.test(email)
-        )
+        setNameError('');
+        setPhoneError('');
+        setEmailError('');
+
+        let _valid = (() => {
+            if (!name) {
+                setNameError('Name is required');
+                return false; 
+            } else if (!phone){
+                setPhoneError('Phone is required');
+                return false;
+            } else if (!email){
+                setEmailError('Email is required');
+                return false;
+            } else if (!/^[0-9]{5}-[0-9]{6}$/.test(phone)){
+                setPhoneError('Phone is improperly formatted')
+                return false;
+            } else if (!/^\w+([.-]?\w+)*@\w+([.-]?w+)*(\.\w{2,3})+$/.test(email)){
+                setEmailError('Email is improperly formatted')
+                return false;
+            } else {
+                return true;
+            }
+        }) ();
+        setIsValid(_valid);
     }, [name, phone, email])
 
     

@@ -76,18 +76,20 @@ test('Displays error messages for invalid inputs', () => {
  const phoneInput =  screen.queryByPlaceholderText('Phone Number')
  const emailInput = screen.queryByPlaceholderText('Email Address')
  
- 
+ fireEvent.change(nameInput, {target: {value: 'Chris'}})
  fireEvent.change(phoneInput, {target: {value: '01000000000'}})
- fireEvent.change(emailInput, {target: {value: 'test'}})
+ fireEvent.change(emailInput, {target: {value: 'test@test.com'}})
 
  const phoneError = screen.getByText('Phone is improperly formatted')
- const emailError = screen.getByText('Email is improperly formatted')
-
+ 
  expect(phoneError).toBeInTheDocument()
- expect(emailError).toBeInTheDocument()
 
  fireEvent.change(phoneInput, {target: {value: '01000-000000'}})
+ fireEvent.change(emailInput, {target: {value: 'test'}})
 
+ const emailError = screen.getByText('Email is improperly formatted')
+
+ expect(emailError).toBeInTheDocument()
  expect(phoneError).not.toBeInTheDocument()
 
  fireEvent.change(emailInput, {target: {value: 'test@test.com'}})
