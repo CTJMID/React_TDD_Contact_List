@@ -69,3 +69,28 @@ test('Disables submit button when form is filled invalid', () => {
 
     expect(submitButton).not.toBeDisabled();
 })
+
+test('Displays error messages for invalid inputs', () => {
+  render(<ContactModal />);
+ const nameInput =  screen.queryByPlaceholderText('Name')
+ const phoneInput =  screen.queryByPlaceholderText('Phone Number')
+ const emailInput = screen.queryByPlaceholderText('Email Address')
+ 
+ 
+ fireEvent.change(phoneInput, {target: {value: '01000000000'}})
+ fireEvent.change(emailInput, {target: {value: 'test'}})
+
+ const phoneError = screen.getByText('Phone is improperly formatted')
+ const emailError = screen.getByText('Email is improperly formatted')
+
+ expect(phoneError).toBeInTheDocument()
+ expect(emailError).toBeInTheDocument()
+
+ fireEvent.change(phoneInput, {target: {value: '01000-000000'}})
+
+ expect(phoneError).not.toBeInTheDocument()
+
+ fireEvent.change(emailInput, {target: {value: 'test@test.com'}})
+
+ expect(emailError).not.toBeInTheDocument()
+});
